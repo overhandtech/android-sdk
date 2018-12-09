@@ -6,7 +6,15 @@ FROM openjdk:8
 MAINTAINER Ricky Ng-Adam <rngadam@yahoo.com>
 
 ENV VERSION_SDK_TOOLS "4333796"
-ENV GRADLE_VERSION 4.10.3
+
+# latest is 4.10.3 however that releases leads to an incompability with jacoco and this error:
+#
+# Execution failed for task ':app:transformClassesWithJacocoForDebug'.
+# > There was a failure while executing work items
+#    > A failure occurred while executing com.android.build.gradle.internal.transforms.JacocoTransform$JacocoWorkerAction
+#       > java.lang.ExceptionInInitializerError (no error message)
+#
+ENV GRADLE_VERSION 4.6
 
 # Install Git and dependencies
 RUN dpkg --add-architecture i386 \
