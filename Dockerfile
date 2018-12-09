@@ -1,6 +1,12 @@
+# https://source.android.com/setup/build/requirements
+# only Android 7.0 (Nougat) - Android 8.0 (Oreo): Ubuntu - OpenJDK 8, Mac OS - jdk 8u45 or newer
+
 FROM openjdk:8
 
-MAINTAINER Dmitry Karikh <the.dr.hax@gmail.com>
+MAINTAINER Ricky Ng-Adam <rngadam@yahoo.com>
+
+ENV VERSION_SDK_TOOLS "4333796"
+ENV GRADLE_VERSION 4.10.3
 
 # Install Git and dependencies
 RUN dpkg --add-architecture i386 \
@@ -11,8 +17,8 @@ RUN dpkg --add-architecture i386 \
 
 # Set up environment variables
 ENV ANDROID_HOME="/home/user/android-sdk-linux" \
-    SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip" \
-    GRADLE_URL="https://services.gradle.org/distributions/gradle-4.5.1-all.zip"
+    SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip" \
+    GRADLE_URL="https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip"
 
 # Create a non-root user
 RUN useradd -m user
@@ -30,7 +36,7 @@ RUN mkdir "$ANDROID_HOME" .android \
 # Install Gradle
 RUN wget $GRADLE_URL -O gradle.zip \
  && unzip gradle.zip \
- && mv gradle-4.5.1 gradle \
+ && mv gradle-${GRADLE_VERSION} gradle \
  && rm gradle.zip \
  && mkdir .gradle
 
