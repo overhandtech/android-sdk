@@ -3,9 +3,10 @@
 
 FROM openjdk:8
 
-MAINTAINER Ricky Ng-Adam <rngadam@yahoo.com>
+MAINTAINER Ricky Ng-Adam <rngadam@gmail.com>
 
 ENV VERSION_SDK_TOOLS "4333796"
+ARG ANDROID_BUILD_TOOLS_VERSION="26.0.0"
 
 # latest is 4.10.3 however that releases leads to an incompability with jacoco and this error:
 #
@@ -49,3 +50,6 @@ RUN wget $GRADLE_URL -O gradle.zip \
  && mkdir .gradle
 
 ENV PATH="/home/user/gradle/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}"
+
+RUN $ANDROID_HOME/tools/bin/sdkmanager "platform-tools"
+RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"

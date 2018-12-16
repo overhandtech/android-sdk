@@ -1,7 +1,12 @@
 #!/bin/sh
-NAME=android-sdk
+DIRNAME=$(realpath `dirname $0`)
+NAME=$(basename $DIRNAME)
+PARENTDIR=$(realpath $DIRNAME/..)
+ORG=overhandtech
+
+echo "Building $ORG/$NAME"
 docker build \
-    -t houtan/$NAME \
-    -t houtan/$NAME:`date +%Y-%m-%d` \
+    -t $ORG/$NAME \
+    -t $ORG/$NAME:`date +%Y-%m-%d` \
     -f ./Dockerfile .
 
