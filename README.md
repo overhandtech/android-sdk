@@ -13,7 +13,7 @@ docker run -it thedrhax/android-sdk bash
 ### Build the project in current directory
 
 ```
-docker run -it -v $(pwd):/home/user/project -w /home/user/project -u $(id -u):$(id -g) thedrhax/android-sdk gradle build
+docker run -it -v $(pwd):/usr/app/src thedrhax/android-sdk gradle build
 ```
 
 ### Persistent Android SDK and caches

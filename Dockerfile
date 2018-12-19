@@ -50,3 +50,5 @@ ENV PATH="/root/gradle/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:
 
 RUN $ANDROID_HOME/tools/bin/sdkmanager "platform-tools"
 RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
+
+WORKDIR /usr/app/src
