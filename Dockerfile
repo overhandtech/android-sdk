@@ -25,14 +25,11 @@ RUN dpkg --add-architecture i386 \
  && rm -rf /var/lib/apt/lists /var/cache/apt
 
 # Set up environment variables
-ENV ANDROID_HOME="/home/user/android-sdk-linux" \
+ENV ANDROID_HOME="/root/android-sdk-linux" \
     SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip" \
     GRADLE_URL="https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip"
 
-# Create a non-root user
-RUN useradd -m user
-USER user
-WORKDIR /home/user
+WORKDIR /root
 
 # Download Android SDK
 RUN mkdir "$ANDROID_HOME" .android \
@@ -49,7 +46,9 @@ RUN wget $GRADLE_URL -O gradle.zip \
  && rm gradle.zip \
  && mkdir .gradle
 
-ENV PATH="/home/user/gradle/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}"
+ENV PATH="/root/gradle/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}"
 
 RUN $ANDROID_HOME/tools/bin/sdkmanager "platform-tools"
 RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
+
+WORKDIR /usr/app/src
